@@ -1,0 +1,40 @@
+
+set terminal wxt background 'black'
+
+unset key
+unset tics
+
+unset border
+
+
+set xrange[-2:2]
+set yrange[-6:2]
+
+set palette model HSV rgbformulae 3,2,2
+
+unset colorbox
+
+
+set object 1 circle at 0, 0 fc rgb 'grey' size 0.06 fs solid front
+set object 2 circle at 0, 0 fc rgb 'black' size 0.03 fs solid front
+
+do for [ii=1:10001] {
+     
+     
+     set multiplot layout 1,1
+     
+     
+     plot 'elasticpen.dat' using 3:4:7 every ::1::ii w l lt 1 lw 1.5 lc palette ,\
+          'elasticpen.dat' u 1:2:($3-$1):($4-$2) every ::ii::ii w vec nohead lw 4 lc rgb "white"  ,\
+          'elasticpen.dat' using 3:4 every ::ii::ii w p pt 7 ps 2 lc rgb "white"  ,\
+          'elasticpen.dat' using 3:4 every ::ii::ii w circles lw 3 lc rgb "white"
+     
+    
+     
+    
+     unset multiplot
+      
+   pause 0.05
+}
+     
+     
